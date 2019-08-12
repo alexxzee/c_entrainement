@@ -57,5 +57,4 @@ int main( void ){
         printf("Refaire une partie ?\n [1] Pour oui \n [2] Pour non \n ");
         scanf("%d", &jouer);
     }
-    
 }
