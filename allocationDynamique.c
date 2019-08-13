@@ -11,10 +11,14 @@ struct Coordonnees{
   // int y;
 };
 
-int* memoireAllouee = NULL;
-memoireAllouee = malloc(sizeof(int));
 
 void main(){
-  // printf( "Coordonnees : %d octets \n", sizeof(Coordonnees) );
+  int* memoireAllouee = NULL;
+  int variable = 1;
+  // memoireAllouee = malloc(sizeof(int));
+  memoireAllouee = malloc(variable);
+ 
+   if( memoireAllouee == NULL ) {exit(0);}
+
+   printf("%d", memoireAllouee);
 }
-https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16595-lallocation-dynamique#/id/r-2190224
