@@ -1,7 +1,7 @@
 #define TAILLE_MAX 1000
 
 char motSecret[TAILLE_MAX] = "";
-char chaine_secret[TAILLE_MAX] = "";
+char chaine_secret[TAILLE_MAX];
 
 struct Display{
   char welcome[200];
@@ -69,10 +69,10 @@ void set_random_word(char *word){
   strcpy(word, words[random]);
 }
 
+// Créer la chaine à afficher (caractere caché et non-caché)
 void set_chaine_to_find(int size_word, char *chaine_secret, int *good_places, char *motSecret)
 {
-  char star[] = "*";
-  
+  char star[1] = "*";
   char letter[1] = "";
   
 
@@ -82,14 +82,20 @@ void set_chaine_to_find(int size_word, char *chaine_secret, int *good_places, ch
     // On réinitialise le caractère
     chaine_secret[i] = 0;
 
-    // Si c'est la bonne lettre on la révèle
-    if( good_places[i] == 1 ) strcat( chaine_secret, letter );
 
-    // Sinon, on y met une étoile à la place
-    else if( good_places[i] == 0 ) strcat( chaine_secret, star );
-
-    // if (i == strlen( chaine_secret )) printf("Dernier caractère: %c\n",  )
+    if (good_places[i] == 1) strcat(chaine_secret, letter);
+    else strcat( chaine_secret, star );
   }
+
+  printf("Nb boucle: %d\n",size_word );
+  printf("Taille chaine: %d\n", strlen(chaine_secret));
+
+  for (int j = 0; j < strlen(chaine_secret); j++){
+    if ( chaine_secret[j] == (-52) || chaine_secret[j] == (-1) || chaine_secret[j] == 97 ){
+      chaine_secret[j] = 0;
+    }
+  }
+
   printf("%s\n", chaine_secret);
 }
 
@@ -100,12 +106,14 @@ void check_letter( char *motSecret, int caractere, int *good_places ){
   }
 }
 
+// Initie les messages à afficher
 void init_display( struct Display *messages ){
   strcpy( messages->welcome, "Bienvenue dans le pendu !");
   strcpy( messages->question_secret, "Quel est le mot secret: ");
   strcpy( messages->question_letter, "Proposez une lettre: ");
 }
 
+// Affiche la série de message
 void display(struct Display *messages){
   printf("%s", messages->question_secret);
   printf("%s", motSecret);
