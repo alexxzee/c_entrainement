@@ -23,7 +23,9 @@ def test_chars(key, min_time):
 
   for letter in CARACTERES:
 
-    client.send(key + letter)  #Envoi de la key trouvé avec en plus la lettre à tester
+    # client.send(key + letter) 
+    output = key + letter
+    client.sendall(output.encode('utf-8')) 
 
     # Marquage du début de la requête
     debut = time.time()
