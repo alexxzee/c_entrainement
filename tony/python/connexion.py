@@ -19,5 +19,24 @@ class SimpleSocket:
     data = self.client.recv(self.buffer_size)
     print(data)
 
+    self.send_request()
+    self.client.close() 
+  
+  def send_request( self ):
+    reply = ''
+    while True:
+        message = "HELP\r\n"
+        reply += self.client.recv(1024)
+        if not reply:
+            break
+        if '220 Only anonymous FTP is allowed here' in reply:
+            self.client.sendall(self.sanitize_to_send(message))
+            break
+    reply += self.client.recv( self.buffer_size )
+    print( reply )
+
+
+
+
 
 connect_tony = SimpleSocket( 'tybbow.com', 21 )
